@@ -26,8 +26,12 @@ Home Assistantin Energy-näkymässä kulutus näkyy selkeästi **tuntitasolla**,
 
 ### 1) Laitteisto ja vastaanotto (wM-Bus 868 MHz)
 Vesimittarin wM-Bus-telegrammit vastaanotetaan **radiosignaalina** 868 MHz taajuudella **CC1101**-radiomodulilla, joka on kytketty **ESP32**-mikrokontrolleriin (ESP32-WROOM-32E) SPI-väylällä. Koodasin ESP32:n vastaanotto- ja välitysohjelman itse **Arduino-ympäristössä**.
-
-![Vedenkulutus dashboar](ESP-32.jpg)
+<p align="center">
+  <img src="ESP32.png" alt="ESP32"
+       style="width:60%; max-width:420px; height:auto;">
+  <br>
+  <em>Käyttämäni ESP-32 mikrokontrolleri</em>
+</p>
 
 ### 2) Siirto Home Assistantiin (MQTT)
 ESP32 julkaisee vastaanotetun **wM-Bus-telegrammin payloadin** MQTT:llä Home Assistant -ympäristöön. MQTT-brokerina toimii Home Assistantin **Mosquitto broker** -lisäosa.
