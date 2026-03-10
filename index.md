@@ -1,11 +1,11 @@
 # Vesimittarin kulutusseuranta Home Assistantissa
 
-Monissa kiinteistöissä vesimittarit lähettävät kulutus- ja tilatietoja langattomasti etäluentaa varten. Halusin hyödyntää tätä, jotta voin seurata omaa vedenkulutusta ja mittarin tilatietoja Home Assistantissa.
+Monissa kiinteistöissä vesimittarit lähettävät kulutus- ja tilatietoja langattomasti etäluentaa varten. Halusin hyödyntää tätä, jotta voin seurata omaa vedenkulutusta ja mittarin tilatietoja Home Assistantissa (kotiautomaatioalusta).
 Tavoitteena oli myös toteuttaa mikrokontrollerilla oikeasti hyödyllinen “end-to-end” projekti, jossa data kulkee kenttälaitteelta seurantaan asti.
 
 Rakensin mittausketjun: vesimittarin wM-Bus-telegrammit vastaanotetaan 868 MHz CC1101-radiolla, ESP32 (mikrokontrolleri) välittää ne MQTT:llä Home Assistantiin ja wmbusmeters-lisäosa purkaa ne Home Assistantin sensor-entiteeteiksi. Home Assistantissa rakensin kulutus- ja kustannusseurannan sekä mittarin tila-/hälytysseurannan dashboardille.
 
-**Teknologiat:** ESP32 (mikrokontrolleri), CC1101 (radio), wM-Bus (tiedonsiirtoprotokolla), MQTT (viestivälitys), Home Assistant (kotiautomaatioalusta)
+**Teknologiat:** ESP32, CC1101, wM-Bus (tiedonsiirtoprotokolla kulutusmittareille), MQTT (viestinvälitysprotokolla), Home Assistant
 
 ## Tulokset
 
@@ -53,5 +53,5 @@ Home Assistantissa rakensin sensoreiden pohjalta:
 - **Purku paikallisesti:** testasin salauksen purun ja telegrammien lukemisen ajamalla **wmbusmeters**-ohjelmaa omassa ympäristössä ennen Home Assistant -integraatiota.
 - **MQTT-siirto:** varmistin, että viestit näkyvät brokerilla ja että Home Assistant vastaanottaa ne.
 - **HA-sensorit ja lopputulos:** varmistin wmbusmeters-lisäosan lokien avulla, että telegrammien purku onnistuu. Tämän jälkeen tarkistin, että wmbusmeters luo oikeat Home Assistant -sensorit. Lopuksi seurasin dashboard- ja Energy-näkymiä ja varmistin, että sensorien arvot vastaavat odotettua kulutusta.
-- **Luotettavuus ja diagnostiikka (jatkokehitys):** MQTT:n kautta voisi lähettää erillisen **keep-alive/heartbeat**-viestin (ja käyttää MQTT:n **Last Will** -ominaisuutta), jotta nähdään onko ESP32 käynnissä. Tällöin häiriötilanteissa voidaan erottaa helpommin, johtuuko ongelma ESP32:n virrasta/yhteydestä vai radiosignaalin vastaanotosta.
+- **Luotettavuus ja diagnostiikka (jatkokehitys):** MQTT:n kautta voisi lähettää erillisen heartbeat/keep-alive-viestin ja hyödyntää MQTT:n Last Will -ominaisuutta, jolloin Home Assistantissa näkyy laitteen online/offline-tila. Tällöin häiriötilanteissa on helpompi erottaa, johtuuko ongelma ESP32:n virrasta/yhteydestä vai radiovastaanotosta
 <link rel="stylesheet" href="assets/css/custom.css">
