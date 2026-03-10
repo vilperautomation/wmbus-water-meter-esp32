@@ -1,0 +1,7 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Piilota "This site is open source. Improve this page." -footer */
+.site-footer-credits { display: none !important; }
