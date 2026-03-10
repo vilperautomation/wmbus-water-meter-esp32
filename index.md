@@ -1,4 +1,4 @@
-# Vesimittarin wM-Bus-datan vastaanotto ja kulutusseuranta Home Assistantissa
+# Vesimittarin kulutusseuranta Home Assistantissa
 
 Monissa kiinteistöissä vesimittarit lähettävät kulutus- ja tilatietoja langattomasti etäluentaa varten. Halusin hyödyntää tätä, jotta voin seurata omaa vedenkulutusta ja mittarin tilatietoja Home Assistantissa.
 Tavoitteena oli myös toteuttaa mikrokontrollerilla oikeasti hyödyllinen “end-to-end” projekti, jossa data kulkee kenttälaitteelta seurantaan asti.
