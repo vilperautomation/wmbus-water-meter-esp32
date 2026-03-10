@@ -2,6 +2,8 @@
 # "Vesimittarin wM-Bus-datan vastaanotto ja kulutusseuranta Home Assistantissa"
 
 Monissa kiinteistöissä vesimittarit lähettävät kulutus- ja tilatietoja langattomasti etäluentaa varten. Halusin hyödyntää tätä, jotta voin seurata omaa vedenkulutusta ja mittarin tilatietoja Home Assistantissa.
+Tavoitteena oli myös toteuttaa mikrokontrollerilla oikeasti hyödyllinen “end-to-end” projekti, jossa data kulkee kenttälaitteelta seurantaan asti.
+
 Rakensin mittausketjun: vesimittarin wM-Bus-telegrammit vastaanotetaan 868 MHz CC1101-radiolla, ESP32 (mikrokontrolleri) välittää ne MQTT:llä Home Assistantiin ja wmbusmeters-lisäosa purkaa ne Home Assistantin sensor-entiteeteiksi. Home Assistantissa rakensin kulutus- ja kustannusseurannan sekä mittarin tila-/hälytysseurannan dashboardille.
 
 **Teknologiat:** ESP32, CC1101 (868 MHz), wM-Bus, MQTT, Home Assistant + wmbusmeters-lisäosa
