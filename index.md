@@ -2,6 +2,13 @@
   .footer.border-top.border-gray-light.mt-5.pt-3.text-right.text-gray {
     display: none !important;
   }
+  /* Piilota ensimmäinen H1, jos se on pelkkä linkki */
+  h1:first-of-type > a { 
+    display: none !important;
+  }
+  h1:first-of-type { 
+    display: none !important;
+  }
 </style>
 # Vesimittarin wM-Bus-datan vastaanotto ja kulutusseuranta Home Assistantissa
 
