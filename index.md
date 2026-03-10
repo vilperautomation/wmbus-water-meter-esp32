@@ -48,7 +48,7 @@ Home Assistantissa rakensin sensoreiden pohjalta:
 
 ## Testaus ja vianrajaus (päästä päähän)
 
-- **SPI-perustesti (CC1101):** ennen radiovastaanoton testausta varmistin laitteistoyhteyden ajamalla toistuvaa SPI-testiä, joka lukee CC1101:n **PARTNUM**- ja **VERSION**-rekisterit. Tällä varmistin, että johdotus ja SPI-kommunikaatio toimivat vakaasti.
+- **SPI-perustesti (CC1101):** ennen radiovastaanoton testausta varmistin ESP32:n ja CC1101:n välisen SPI-yhteyden ajamalla toistuvaa SPI-testiä, joka lukee CC1101:n PARTNUM- ja VERSION-rekisterit. Tällä varmistin, että johdotus ja SPI-kommunikaatio toimivat vakaasti.
 - **Radiovastaanotto:** varmistin ESP32:n debug-/lokitulosteista, että telegrammeja tulee odotetulla tahdilla ja että ne vastaavat omaa mittaria.
 - **Purku paikallisesti:** testasin salauksen purun ja telegrammien lukemisen ajamalla **wmbusmeters**-ohjelmaa omassa ympäristössä ennen Home Assistant -integraatiota.
 - **MQTT-siirto:** varmistin, että viestit näkyvät brokerilla ja että Home Assistant vastaanottaa ne.
