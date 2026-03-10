@@ -1,26 +1,30 @@
 # Vesimittarin kulutusseuranta Home Assistantissa
 
-Monissa kiinteistöissä vesimittarit lähettävät kulutus- ja tilatietoja langattomasti etäluentaa varten. Halusin hyödyntää tätä, jotta voin seurata omaa vedenkulutusta ja mittarin tilatietoja Home Assistantissa (kotiautomaatioalusta).
+Monissa kiinteistöissä vesimittarit lähettävät kulutus- ja tilatietoja langattomasti etäluentaa varten. Halusin hyödyntää tätä, jotta voin seurata omaa vedenkulutusta ja mittarin tilatietoja.
 Tavoitteena oli myös toteuttaa mikrokontrollerilla oikeasti hyödyllinen “end-to-end” projekti, jossa data kulkee kenttälaitteelta seurantaan asti.
 
-Rakensin mittausketjun: vesimittarin wM-Bus-telegrammit vastaanotetaan 868 MHz CC1101-radiolla, ESP32 (mikrokontrolleri) välittää ne MQTT:llä Home Assistantiin ja wmbusmeters-lisäosa purkaa ne Home Assistantin sensor-entiteeteiksi. Home Assistantissa rakensin kulutus- ja kustannusseurannan sekä mittarin tila-/hälytysseurannan dashboardille.
+## Käytetyt teknologiat projektissa
 
-**Teknologiat:** ESP32, CC1101, wM-Bus (tiedonsiirtoprotokolla kulutusmittareille), MQTT (viestinvälitysprotokolla), Home Assistant
+- **wM-Bus (Wireless M-Bus):** vesimittarin käyttämä langaton tiedonsiirtoprotokolla, jonka telegrammeja projektissa käsiteltiin.
+- **CC1101 (868 MHz):** radiomoduuli, jolla vesimittarin langaton wM-Bus-signaali vastaanotettiin.
+- **ESP32:** mikrokontrolleri, joka ohjasi CC1101-radiomoduulia, käsitteli vastaanotetut wM-Bus-telegrammit ja välitti ne eteenpäin verkon yli.
+- **Home Assistant (HA):** avoimen lähdekoodin kotiautomaatioalusta, johon vesimittarin viestit tuotiin käsiteltäviksi. Home Assistantissa raakadata muunnettiin käyttöliittymässä näkyviksi mittausarvoiksi ja tilatiedoiksi, joiden pohjalta rakennettiin kulutus- ja kustannusseuranta sekä mittarin tila- ja hälytysseuranta dashboardille.
+- **MQTT:** kevyt viestinvälitysprotokolla, jolla ESP32 lähetti vastaanotetut telegrammit Home Assistantiin Mosquitto-brokerin kautta.
 
 ## Tulokset
 
-### Dashboard: kulutus, kustannus ja mittarin tilat
-Kuvakaappaus dashboardista, joka kokoaa yhteen olennaisimmat asiat yhdelle sivulle:
-- **Kuukausi-, päivä-** sekä **kuluvan päivän huippukulutus**
-- **Kustannusseuranta** (veden hinta määritelty HA:ssa)
-- **Mittarin tilat ja hälytykset** (esim. jatkuva vuoto / takaisinvirtaus) sekä mittarin lämpötilat
+### Home Assistant -dashboard: kulutus, kustannus ja mittarin tilat
+Alla on kuvakaappaus Home Assistantin dashboard-näkymästä, johon koottiin vesimittarin tärkeimmät kulutus-, kustannus- ja tilatiedot:
+- **kuukausi-, päivä-** sekä **kuluvan päivän huippukulutus**
+- **kustannusseuranta** (veden hinta määritelty HA:ssa)
+- **mittarin tilatiedot, lämpötilat ja hälytykset** (esim. jatkuva vuoto / takaisinvirtaus)
 ![Vedenkulutus dashboard](HA-water-dashboard.png)
 
-### HA Energy -näkymä: tuntiprofiili ja seuranta
+### Home Assistant Energy -näkymä: tuntiprofiili ja seuranta
 Home Assistantin Energy-näkymässä kulutus näkyy selkeästi **tuntitasolla**, jolloin:
 - suihkut ja muut kulutuspiikit erottuvat helposti
 - kulutuksen rytmiä voi verrata eri päivien välillä
-- pohjalle on helppo rakentaa **hälytyksiä** (esim. jos kulutus jatkuu yöllä epätavallisesti)
+- näkymä toimii myös “päästä päähän” -varmistuksena: kulutus kertyy ajan myötä ja mittausarvot näkyvät tasaisena kertymänä
 ![Tuntikulutus ja kustannus](water-consumption-graph.png)
 
 ## Toteutus lyhyesti
@@ -35,7 +39,7 @@ Vesimittarin wM-Bus-telegrammit vastaanotetaan **radiosignaalina** 868 MHz taaju
 </p>
 
 ### 2) Siirto Home Assistantiin (MQTT)
-ESP32 julkaisee vastaanotetun **wM-Bus-telegrammin payloadin** MQTT:llä Home Assistant -ympäristöön. MQTT-brokerina toimii Home Assistantin **Mosquitto broker** -lisäosa.
+ESP32 julkaisee vastaanotetun **wM-Bus-telegrammin payloadin** MQTT:llä Home Assistant -ympäristöön. MQTT perustuu julkaisu–tilaus -malliin (pub/sub), ja brokerina toimii Home Assistantin **Mosquitto broker** -lisäosa.
 
 ### 3) Purku (wmbusmeters)
 Home Assistantissa **wmbusmeters-lisäosa** kuuntelee MQTT-topiccia, purkaa wM-Bus-telegrammin ja hoitaa myös **salauksen purun**. Tämän jälkeen mittausarvot muodostuvat sensoreiksi (esim. kokonaiskulutus, virtaus, lämpötilat sekä mittarin tila-/hälytysbitit).
@@ -44,7 +48,7 @@ Home Assistantissa **wmbusmeters-lisäosa** kuuntelee MQTT-topiccia, purkaa wM-B
 Home Assistantissa rakensin sensoreiden pohjalta:
 - **tunti-/päivä-/kuukausikulutuksen**
 - **kustannusseurannan**
-- **mittarin tila- ja hälytystietojen** seurannan dashboardilla
+- **mittarin tila- ja hälytystietojen** seurannan dashboardissa
 
 ## Testaus ja vianrajaus (päästä päähän)
 
@@ -53,5 +57,5 @@ Home Assistantissa rakensin sensoreiden pohjalta:
 - **Purku paikallisesti:** testasin salauksen purun ja telegrammien lukemisen ajamalla **wmbusmeters**-ohjelmaa omassa ympäristössä ennen Home Assistant -integraatiota.
 - **MQTT-siirto:** varmistin, että viestit näkyvät brokerilla ja että Home Assistant vastaanottaa ne.
 - **HA-sensorit ja lopputulos:** varmistin wmbusmeters-lisäosan lokien avulla, että telegrammien purku onnistuu. Tämän jälkeen tarkistin, että wmbusmeters luo oikeat Home Assistant -sensorit. Lopuksi seurasin dashboard- ja Energy-näkymiä ja varmistin, että sensorien arvot vastaavat odotettua kulutusta.
-- **Luotettavuus ja diagnostiikka (jatkokehitys):** MQTT:n kautta voisi lähettää erillisen heartbeat/keep-alive-viestin ja hyödyntää MQTT:n Last Will -ominaisuutta, jolloin Home Assistantissa näkyy laitteen online/offline-tila. Tällöin häiriötilanteissa on helpompi erottaa, johtuuko ongelma ESP32:n virrasta/yhteydestä vai radiovastaanotosta
+- **Jatkokehitys (diagnostiikan parantaminen):** MQTT:n kautta voisi lähettää erillisen heartbeat/keep-alive-viestin, jolloin ESP32:n online/offline-tila näkyy Home Assistantissa. Tämän perusteella voi tehdä Home Assistantissa hälytyksen (esim. sähköposti/tekstiviesti), jos laite putoaa pois.
 <link rel="stylesheet" href="assets/css/custom.css">
