@@ -1,14 +1,3 @@
-<style>
-  .footer.border-top.border-gray-light.mt-5.pt-3.text-right.text-gray {
-    display: none !important;
-  }
-  h1:first-of-type > a { 
-    display: none !important;
-  }
-  h1:first-of-type { 
-    display: none !important;
-  }
-</style>
 # Vesimittarin wM-Bus-datan vastaanotto ja kulutusseuranta Home Assistantissa
 
 Monissa kiinteistöissä vesimittarit lähettävät kulutus- ja tilatietoja langattomasti etäluentaa varten. Halusin hyödyntää tätä, jotta voin seurata omaa vedenkulutusta ja mittarin tilatietoja Home Assistantissa.
@@ -65,3 +54,4 @@ Home Assistantissa rakensin sensoreiden pohjalta:
 - **MQTT-siirto:** varmistin, että viestit näkyvät brokerilla ja että Home Assistant vastaanottaa ne.
 - **HA-sensorit ja lopputulos:** varmistin wmbusmeters-lisäosan lokien avulla, että telegrammien purku onnistuu. Tämän jälkeen tarkistin, että wmbusmeters luo oikeat Home Assistant -sensorit. Lopuksi seurasin dashboard- ja Energy-näkymiä ja varmistin, että sensorien arvot vastaavat odotettua kulutusta.
 - **Luotettavuus ja diagnostiikka (jatkokehitys):** MQTT:n kautta voisi lähettää erillisen **keep-alive/heartbeat**-viestin (ja käyttää MQTT:n **Last Will** -ominaisuutta), jotta nähdään onko ESP32 käynnissä. Tällöin häiriötilanteissa voidaan erottaa helpommin, johtuuko ongelma ESP32:n virrasta/yhteydestä vai radiosignaalin vastaanotosta.
+<link rel="stylesheet" href="assets/css/custom.css">
