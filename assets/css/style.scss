@@ -1,11 +1,7 @@
----
----
+.footer.border-top.border-gray-light.mt-5.pt-3.text-right.text-gray {
+  display: none !important;
+}
 
-@import "{{ site.theme }}";
 
-/* Piilota "This site is open source. Improve this page." -footer */
-.site-footer-credits { display: none !important; }
-
-.site-footer-credits { display: none !important; }
-.page-footer, footer { }
-a[href*="github.com"][href*="edit"] { display: none !important; }
+h1:first-of-type > a { display: none !important; }
+h1:first-of-type { display: none !important; }
