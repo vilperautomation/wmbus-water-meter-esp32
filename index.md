@@ -5,7 +5,7 @@ Tavoitteena oli myös toteuttaa mikrokontrollerilla oikeasti hyödyllinen “end
 
 Rakensin mittausketjun: vesimittarin wM-Bus-telegrammit vastaanotetaan 868 MHz CC1101-radiolla, ESP32 (mikrokontrolleri) välittää ne MQTT:llä Home Assistantiin ja wmbusmeters-lisäosa purkaa ne Home Assistantin sensor-entiteeteiksi. Home Assistantissa rakensin kulutus- ja kustannusseurannan sekä mittarin tila-/hälytysseurannan dashboardille.
 
-**Teknologiat:** ESP32, CC1101 (868 MHz), wM-Bus, MQTT, Home Assistant + wmbusmeters-lisäosa
+**Teknologiat:** ESP32 (mikrokontrolleri), CC1101 (radio), wM-Bus (tiedonsiirtoprotokolla), MQTT (viestivälitys), Home Assistant (kotiautomaatioalusta)
 
 ## Tulokset
 
