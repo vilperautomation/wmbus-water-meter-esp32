@@ -58,4 +58,5 @@ Home Assistantissa rakensin sensoreiden pohjalta:
 - **MQTT-siirto:** varmistin, että viestit näkyvät brokerilla ja että Home Assistant vastaanottaa ne.
 - **HA-sensorit ja lopputulos:** varmistin wmbusmeters-lisäosan lokien avulla, että telegrammien purku onnistuu. Tämän jälkeen tarkistin, että wmbusmeters luo oikeat Home Assistant -sensorit. Lopuksi seurasin dashboard- ja Energy-näkymiä ja varmistin, että sensorien arvot vastaavat odotettua kulutusta.
 - **Jatkokehitys (diagnostiikan parantaminen):** MQTT:n kautta voisi lähettää erillisen heartbeat/keep-alive-viestin, jolloin ESP32:n online/offline-tila näkyy Home Assistantissa. Tämän perusteella voi tehdä Home Assistantissa hälytyksen (esim. sähköposti/tekstiviesti), jos laite putoaa pois.
+
 <link rel="stylesheet" href="assets/css/custom.css">
