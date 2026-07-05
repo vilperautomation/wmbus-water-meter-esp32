@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+body {
+    padding-top: 24px;
+  }
+
 /* Piilota repo-nimi -otsikko */
 h1:first-of-type > a {
   display: none !important;
