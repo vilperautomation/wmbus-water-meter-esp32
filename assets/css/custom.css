@@ -1,8 +1,21 @@
-/* Piilota footer */
 .footer.border-top.border-gray-light.mt-5.pt-3.text-right.text-gray {
   display: none !important;
 }
 
-/* Piilota repo-nimi -otsikko (ensimmäinen H1, jos se on pelkkä linkki) */
-h1:first-of-type > a { display: none !important; }
-h1:first-of-type { display: none !important; }
+/* Piilota repo-nimi -otsikko */
+h1:first-of-type > a {
+  display: none !important;
+}
+
+h1:first-of-type {
+  display: none !important;
+}
+
+.back-link {
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+}
+
+.back-link + h1 {
+  margin-top: 0;
+}
