@@ -1,3 +1,7 @@
+---
+title: Vesimittarin etäluenta
+---
+
 <p class="back-link">
   <a href="https://vilperautomation.github.io/">← Kaikki projektit</a>
 </p>
