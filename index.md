@@ -1,3 +1,7 @@
+<p class="back-link">
+  <a href="https://vilperautomation.github.io/">← Kaikki projektit</a>
+</p>
+
 # Vesimittarin kulutusseuranta Home Assistantissa
 
 Monissa kiinteistöissä vesimittarit lähettävät kulutus- ja tilatietoja langattomasti etäluentaa varten. Halusin hyödyntää tätä, jotta voin seurata omaa vedenkulutusta ja mittarin tilatietoja.
@@ -59,4 +63,7 @@ Home Assistantissa rakensin sensoreiden pohjalta:
 - **HA-sensorit ja lopputulos:** varmistin wmbusmeters-lisäosan lokien avulla, että telegrammien purku onnistuu. Tämän jälkeen tarkistin, että wmbusmeters luo oikeat Home Assistant -sensorit. Lopuksi seurasin dashboard- ja Energy-näkymiä ja varmistin, että sensorien arvot vastaavat odotettua kulutusta.
 - **Jatkokehitys (diagnostiikan parantaminen):** MQTT:n kautta voisi lähettää erillisen heartbeat/keep-alive-viestin, jolloin ESP32:n online/offline-tila näkyy Home Assistantissa. Tämän perusteella voi tehdä Home Assistantissa hälytyksen (esim. sähköposti/tekstiviesti), jos laite putoaa pois.
 
+<p>
+  <a href="https://vilperautomation.github.io/">← Kaikki projektit</a>
+</p>
 <link rel="stylesheet" href="assets/css/custom.css">
